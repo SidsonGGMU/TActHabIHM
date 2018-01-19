@@ -1,0 +1,60 @@
+<section class="breadcrumb">
+  <label (click)="gotoRoot()">MS</label>
+  <label *ngIf   = "currentPath.MS"
+         (click) = "gotoMS(currentPath.MS)"
+  >
+    / {{currentPath.MS.name}}
+  </label>
+  <label *ngFor  = "let container of currentPath.containers"
+         (click) = "gotoContainer(currentPath.MS, container)"
+  >
+    / {{getLabelContainer(container)}}
+  </label>
+</section>
+<section class="explorer">
+  <section *ngIf = "!isProcessing()">
+    <!-- Display MediaServer -->
+    <section *ngFor  = "let ms of getMediaServers()"
+              class  = "MS icon"
+             (click) = "gotoMS(ms)"
+    >
+      <img class="icon" [src]="getIconMS(ms)" />
+      <label class="name">{{getLabelMS(ms)}}</label>
+    </section>
+
+    <!-- Display containers -->
+    <section *ngFor  = "let container of currentContainers"
+             class  = "container icon"
+             (click) = "gotoContainer(currentPath.MS, container)"
+    >
+      <img class="icon" [src]="getIconContainer(container)" />
+      <label class="name">{{getLabelContainer(container)}}</label>
+    </section>
+
+    <!-- Display medias -->
+    <section *ngFor  = "let item of currentItems"
+             class  = "item icon"
+             (click) = "gotoItem(item)"
+    >
+      <img class="icon" [src]="getIconItem(item)" />
+      <label class="name">{{getLabelItem(item)}}</label>
+    </section>
+
+    <!-- Display selected media -->
+    <section *ngIf = "currentPath.item">
+      <img class="icon" [src]="getIconItem(currentPath.item)" />
+      <label class="name">{{getLabelItem(currentPath.item)}}</label>
+    </section>
+
+  </section>
+  <section *ngIf = "isProcessing()">
+    PROCESSING...
+  </section>
+</section>
+
+<section class="buttons">
+  <button mat-raised-button color = "primary"
+          (click) = "ok()"    >{{getOKLabel()     | async}}</button>
+  <button mat-raised-button color = "warn"
+          (click) = "cancel()">{{getCancelLabel() | async}}</button>
+</section>

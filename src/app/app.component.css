@@ -1,0 +1,32 @@
+img.user {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-right: 0.5em;
+  border: solid darkgrey 3px;
+}
+
+label.connected {
+  flex: 1 1;
+  margin-left: 1em;
+}
+
+
+@media(max-width: 320px) {
+  mat-toolbar > h1, label.name, label.connected {
+    display: none;
+  }
+}
+
+@media(max-width: 700px) {
+  mat-toolbar > h1 {
+    display: none;
+  }
+}
+
+
+@media(min-width: 700px) {
+  .fill {
+    flex: 1 1;
+  }
+}

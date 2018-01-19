@@ -1,0 +1,23 @@
+<h1 translate >
+  connect
+</h1>
+
+<form>
+  <mat-form-field>
+    <input #srvAd
+           matInput
+           name="srvAd"
+           placeholder="{{getServerAdressPlaceholder() | async }}"
+           [ngModel]="getServerAdress()">
+  </mat-form-field>
+
+  <footer>
+    <button mat-raised-button (click)="close()">
+      CANCEL
+    </button>
+
+    <button mat-raised-button (click)="setServerAdress( srvAd.value )">
+      OK
+    </button>
+  </footer>
+</form>

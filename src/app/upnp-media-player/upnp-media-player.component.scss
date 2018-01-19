@@ -1,0 +1,22 @@
+section.control {
+  display: flex;
+  flex-flow: row;
+}
+
+section.control > mat-slider {
+  flex: 0 1 auto;
+}
+
+section.control > section.infosPPS {
+  flex: 1 1;
+  display: flex;
+  flex-flow: column;
+}
+
+section.infos {
+  flex: 1 1;
+}
+
+section.PPS {
+  flex: 0 1 auto;
+}

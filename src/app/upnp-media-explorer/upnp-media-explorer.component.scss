@@ -1,0 +1,58 @@
+$iconWidth: 50px;
+$paddingIcon: 2px;
+
+:host {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+section.explorer {
+  flex: 1 1;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  font-family: Roboto;
+  font-size: medium;
+
+  section.icon {
+    display: inline-flex;
+    flex-flow: row;
+    border: solid black 1px;
+    padding: 2px;
+    margin: 5px;
+
+    &:hover {
+      transform: scale(1.1, 1.1);
+      transition: transform 0.2s;
+      background: lightgreen;
+    }
+
+    height: $iconWidth + $paddingIcon;
+
+    img.icon {
+      width: $iconWidth;
+      height: $iconWidth;
+    }
+
+    label.name {
+      width: 2 * $iconWidth;
+      max-height: $iconWidth;
+      overflow: hidden;
+      font-size: x-small;
+    }
+  }
+}
+
+section.buttons {
+  flex: 0 1 auto;
+  display: flex;
+  flex-flow: row-reverse;
+  border-top: solid black 1px;
+
+  button {
+    margin: 5px;
+  }
+}
+

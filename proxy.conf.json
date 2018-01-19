@@ -1,0 +1,22 @@
+{
+  "/logout": {
+    "target": "http://localhost:8888",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/auth/*": {
+    "target": "http://localhost:8888",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/socket.io/*": {
+    "target": "http://localhost:8888",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/data/*": {
+    "target": "http://localhost:8888",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

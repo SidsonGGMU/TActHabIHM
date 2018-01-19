@@ -1,20 +1,60 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
+<mat-toolbar color="primary">
+  <h1 translate [translateParams]="{ title: 'TActHab' }" >
+    welcome
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
+
+  <div class="fill"></div>
+
+  <img *ngIf="isConnected()"
+       class="user"
+       [src]="getUserImageURL()" />
+  <label class="name">{{getUserName()}}</label>
+  <label class="connected">{{getStrConnected() | async }}</label>
+
+  <section >
+    <!--<label translate [translateParams]="{ gender: 'male', count: 1, logged: isConnected() }" >
+      logged
+    </label>-->
+    <button class="more" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [disabled]="isConnected()" (click)="openConnect()">
+        <mat-icon>input</mat-icon>
+        <span translate>
+          connect
+        </span>
+      </button>
+      <button mat-menu-item [matMenuTriggerFor]="menuLang">
+        <mat-icon>language</mat-icon>
+        <span translate>
+          lang
+        </span>
+      </button>
+      <button mat-menu-item [disabled]="!isConnected()" (click)="logout()">
+        <mat-icon>eject</mat-icon>
+        <span translate>
+          disconnect
+        </span>
+      </button>
+    </mat-menu>
+  </section>
+  <mat-menu #menuLang="matMenu">
+    <button mat-menu-item *ngFor="let lang of getLanguages()" (click)="setLanguage(lang)">
+      <label>
+          {{getLanguageFullName(lang)}}
+      </label>
+    </button>
+  </mat-menu>
+</mat-toolbar>
+
+<app-upnp-media-player *ngFor="let mp of getMediaPlayers()"
+                       [mp] = "mp"
+                       [update] = "mp.update"
+                       ></app-upnp-media-player>
 <ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
+  <li *ngFor="let brick of getBricks()">
+    <code>{{brick.name}} : {{brick.types | json}} ({{brick.id}})</code>
   </li>
 </ul>
-
