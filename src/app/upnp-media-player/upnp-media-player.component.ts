@@ -37,6 +37,11 @@ export class UpnpMediaPlayerComponent implements OnInit {
     this.call( call );
   }
 
+  isPlaying(): boolean {
+    // STOPPED, PAUSED_PLAYBACK, PLAYING, TRANSITIONING, NO_MEDIA_PRESENT
+    return this.getStateVariableByName("urn:upnp-org:serviceId:AVTransport", "TransportState").value === "PLAYING";
+  }
+
   play(): Promise<CALL_RESULT> {
     return this.callPPS("play");
   }

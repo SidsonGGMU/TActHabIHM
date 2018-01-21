@@ -55,6 +55,8 @@
                        ></app-upnp-media-player>
 <ul>
   <li *ngFor="let brick of getBricks()">
-    <code>{{brick.name}} : {{brick.types | json}} ({{brick.id}})</code>
+    <code>{{brick.name}} : {{brick.types | json}} ({{brick.id}})<br/>
+          {{brick | json}}
+    </code>
   </li>
 </ul>

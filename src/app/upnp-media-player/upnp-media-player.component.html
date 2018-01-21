@@ -24,12 +24,11 @@
         <section class="PPS">
           <button mat-fab color="primary" (click)="load()">⏏</button>
           <button mat-fab color="primary" (click)="stop()">⬛</button>
-          <button mat-fab color="primary" (click)="play()">▶</button>
-          <button mat-fab color="primary" (click)="pause()">॥</button>
+          <button mat-fab color="primary" (click)="play() " *ngIf="!isPlaying()">▶</button>
+          <button mat-fab color="primary" (click)="pause()" *ngIf=" isPlaying()">॥</button>
         </section>
       </section>
     </section>
-
 
   </mat-card-content>
 </mat-card>
