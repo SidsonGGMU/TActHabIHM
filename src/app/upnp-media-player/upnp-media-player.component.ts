@@ -12,7 +12,7 @@ import {UPnP_MEDIA_PATH, UpnpMediaExplorerComponent} from '../upnp-media-explore
   styleUrls: ['./upnp-media-player.component.scss']
 })
 export class UpnpMediaPlayerComponent implements OnInit {
-  @Input() mp: BrickUPnPJSON;
+  @Input("data") mp: BrickUPnPJSON;
   @Input() update: number;
 
   constructor(private tservice: TacthabService, private dialog: MatDialog) { }

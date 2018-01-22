@@ -49,14 +49,18 @@
   </mat-menu>
 </mat-toolbar>
 
-<app-upnp-media-player *ngFor="let mp of getMediaPlayers()"
-                       [mp] = "mp"
+<app-upnp-media-player *ngFor   = "let mp of getMediaPlayers()"
+                       [data]   = "mp"
                        [update] = "mp.update"
-                       ></app-upnp-media-player>
+></app-upnp-media-player>
+<app-hue-lamp          *ngFor   = "let hueLamp of getHueLamps()"
+                       [data]   = "hueLamp"
+                       [update] = "hueLamp.update"
+></app-hue-lamp>
 <ul>
   <li *ngFor="let brick of getBricks()">
     <code>{{brick.name}} : {{brick.types | json}} ({{brick.id}})<br/>
-          {{brick | json}}
+          <!-- {{brick | json}} -->
     </code>
   </li>
 </ul>

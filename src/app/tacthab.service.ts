@@ -137,7 +137,7 @@ export class TacthabService {
     const brick = this.getBrickFromId( event.brickId );
     if (brick) {
       const types = brick.types;
-      for (let i = types.length; i >= 0; i--) {
+      for (let i = types.length - 1; i >= 0; i--) {
         const type = types[i];
         switch (type) {
           case "BrickUPnP":
@@ -145,14 +145,26 @@ export class TacthabService {
             this.unserializeBrickUPnPEvent(brickUPnP, event);
             return;
           case "Brick":
+            this.unserializeBrickEvent(brick, event);
             return;
         }
       }
     }
   }
 
+  unserializeBrickEvent(brickJSON: BrickJSON, event: BrickEvent) {
+    // console.log("Unserialize Brick event", event, "for brick", brickJSON);
+    if (typeof brickJSON[event.attribute] === "object") {
+      const L = event.data as [string, any][];
+      L.forEach( ([k, v]) => brickJSON[event.attribute][k] = v );
+      brickJSON.update++;
+    } else {
+      brickJSON[event.attribute] = event.data;
+    }
+  }
+
   unserializeBrickUPnPEvent(brickUPnP: BrickUPnPJSON, event: BrickUPnPEvent) {
-    console.log("Unserialize UPnP event", event, "for brick", brickUPnP);
+    // console.log("Unserialize UPnP event", event, "for brick", brickUPnP);
     const serviceId = event.attribute;
     const stateVarName = event.data.stateVariable;
     const stateVar = this.getStateVariableByName(brickUPnP, serviceId, stateVarName);

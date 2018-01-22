@@ -19,6 +19,8 @@ import {environment} from '../environments/environment';
 import {FormsModule} from '@angular/forms';
 import { DialogConnectComponent } from './dialog-connect/dialog-connect.component';
 import {HttpClientModule} from '@angular/common/http';
+import { HueBridgeComponent } from './hue-bridge/hue-bridge.component';
+import { HueLampComponent } from './hue-lamp/hue-lamp.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {HttpClientModule} from '@angular/common/http';
     SocketBusComponent,
     UpnpMediaPlayerComponent,
     UpnpMediaExplorerComponent,
-    DialogConnectComponent
+    DialogConnectComponent,
+    HueBridgeComponent,
+    HueLampComponent
   ],
   entryComponents: [
     DialogConnectComponent, UpnpMediaExplorerComponent

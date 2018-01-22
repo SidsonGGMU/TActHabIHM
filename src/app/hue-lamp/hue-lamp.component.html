@@ -1,0 +1,7 @@
+<section>
+  {{getName()}} (update {{getUpdate()}}) {{getColorHSB()}} {{getColor()}}
+  <input type="color" [ngModel]="getColor()" (ngModelChange)="setColor($event)" />
+  <button (click)="turnOnTo( !isOn() )">
+    {{isOn() ? "Eteindre" : "Allumer"}}
+  </button>
+</section>

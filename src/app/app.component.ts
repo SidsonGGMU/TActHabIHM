@@ -109,6 +109,10 @@ export class AppComponent {
     return bricksUPnP.filter( B => B.types.indexOf("MediaRenderer") >= 0 );
   }
 
+  getHueLamps(): BrickJSON[] {
+    return this.getBricksTyped("HueLamp");
+  }
+
   getBricksTyped(type: string): BrickJSON[] {
     return this.getBricks().filter(
       B => B.types.indexOf(type) >= 0
