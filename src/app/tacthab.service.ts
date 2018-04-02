@@ -10,6 +10,7 @@ import {BrickJSON, BrickUPnPJSON, CALL_RESULT} from './data/Brick';
 import {CALL} from "./data/Brick";
 import {ServiceJSON} from 'alx-upnp';
 import {StateVariableJSON} from 'alx-upnp/build/Service';
+import {BLEJSON} from './data/BLE';
 
 @Injectable()
 export class TacthabService {
@@ -27,7 +28,10 @@ export class TacthabService {
     this.obsIsConnected.forEach( connected => {
       console.log("connected", connected);
       if (connected) {
-        this.sio.emit("getBricks", bricks => this.bricks = bricks);
+        this.sio.emit(
+          "getBricks",
+            bricks => this.bricks = bricks.map( B => ({...B, update: 0}) )
+        );
       } else {
         this.bricks = [];
       }
@@ -140,6 +144,10 @@ export class TacthabService {
       for (let i = types.length - 1; i >= 0; i--) {
         const type = types[i];
         switch (type) {
+          case "BLE":
+            const brickBLE = brick as BLEJSON;
+            this.unserializeBrickBLEEvent(brickBLE, event);
+            return;
           case "BrickUPnP":
             const brickUPnP = brick as BrickUPnPJSON;
             this.unserializeBrickUPnPEvent(brickUPnP, event);
@@ -173,20 +181,42 @@ export class TacthabService {
       brickUPnP.update++;
     }
   }
+
+  unserializeBrickBLEEvent(brickBLE: BLEJSON, event: BrickBLEEvent) {
+    // console.log(brickBLE, "vent", event);
+    switch (event.attribute) {
+      case "updateIsConnected":
+        brickBLE.BLE.isConnected = event.data as boolean;
+        brickBLE.update++;
+        break;
+      case "updateState":
+        brickBLE.BLE.state = {...brickBLE.BLE.state, ...event.data as JsonObject};
+        brickBLE.update++;
+        break;
+      default:
+        console.error("Unknown attribute", event.attribute, "for BrickBLE");
+    }
+  }
+
 }
 
 
-type BrickEvent = {
+interface BrickEvent {
   brickId: string;
   attribute: string;
   data: any;
-};
+}
 
-type BrickUPnPEvent = {
-  brickId: string;
-  attribute: string;
+interface BrickUPnPEvent extends BrickEvent {
   data: {
     stateVariable: string;
     value: any;
   };
-};
+}
+
+type JsonObject = {[key: string]: any};
+
+interface BrickBLEEvent extends BrickEvent {
+  attribute: string; // "updateIsConnected" | "updateState";
+  data: boolean | JsonObject;
+}

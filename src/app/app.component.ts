@@ -7,6 +7,7 @@ import {translationsTitle} from "./translations/translationInterface";
 import {MatDialog, MatIconRegistry} from '@angular/material';
 import {DialogConnectComponent} from './dialog-connect/dialog-connect.component';
 import {BrickJSON, BrickUPnPJSON} from './data/Brick';
+import {DialogBridgeBleComponent} from './dialog-bridge-blecomponent/dialog-bridge-ble.component';
 
 const tacthab2ConfigLanguage = "tacthab2ConfigLanguage";
 
@@ -51,6 +52,12 @@ export class AppComponent {
 
   isConnected(): boolean {
     return this.tservice.isConnected();
+  }
+
+  getBLEBridgeLabel(): Observable<string> {
+    return this.translate.get("BLEBridge", {
+      count: 2
+    });
   }
 
   getLanguageFullName(lang: string): string {
@@ -113,9 +120,22 @@ export class AppComponent {
     return this.getBricksTyped("HueLamp");
   }
 
+  getMetawears(): BrickJSON[] {
+    return this.getBricksTyped("METAWEAR");
+  }
+
   getBricksTyped(type: string): BrickJSON[] {
     return this.getBricks().filter(
       B => B.types.indexOf(type) >= 0
     );
   }
+
+  createBLEBridge() {
+    const dialogRef = this.dialog.open(DialogBridgeBleComponent, {
+      width: '400px',
+      height: '250px',
+      data: {}
+    });
+  }
+
 }

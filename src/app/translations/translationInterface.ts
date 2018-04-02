@@ -30,5 +30,9 @@ export const translationsTitle = {
   CANCEL: {
     en: "Cancel",
     fr: "Annuler"
+  },
+  BLEBridge: {
+    en: "Bluetooth bridge{count, plural, =0{} one{} other{s}}",
+    fr: "Pont{count, plural, =0{} one{} other{s}} Bluetooth"
   }
 };

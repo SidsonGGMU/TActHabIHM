@@ -21,6 +21,8 @@ import { DialogConnectComponent } from './dialog-connect/dialog-connect.componen
 import {HttpClientModule} from '@angular/common/http';
 import { HueBridgeComponent } from './hue-bridge/hue-bridge.component';
 import { HueLampComponent } from './hue-lamp/hue-lamp.component';
+import { MetawearComponent } from './metawear/metawear.component';
+import { DialogBridgeBleComponent } from './dialog-bridge-blecomponent/dialog-bridge-ble.component';
 
 @NgModule({
   declarations: [
@@ -30,10 +32,12 @@ import { HueLampComponent } from './hue-lamp/hue-lamp.component';
     UpnpMediaExplorerComponent,
     DialogConnectComponent,
     HueBridgeComponent,
-    HueLampComponent
+    HueLampComponent,
+    MetawearComponent,
+    DialogBridgeBleComponent
   ],
   entryComponents: [
-    DialogConnectComponent, UpnpMediaExplorerComponent
+    DialogConnectComponent, DialogBridgeBleComponent, UpnpMediaExplorerComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,

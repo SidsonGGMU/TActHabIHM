@@ -32,6 +32,12 @@
           lang
         </span>
       </button>
+      <button mat-menu-item (click)="createBLEBridge()">
+        <mat-icon>bluetooth</mat-icon>
+        <span>
+          {{getBLEBridgeLabel() | async}}
+        </span>
+      </button>
       <button mat-menu-item [disabled]="!isConnected()" (click)="logout()">
         <mat-icon>eject</mat-icon>
         <span translate>
@@ -49,14 +55,21 @@
   </mat-menu>
 </mat-toolbar>
 
-<app-upnp-media-player *ngFor   = "let mp of getMediaPlayers()"
-                       [data]   = "mp"
-                       [update] = "mp.update"
+<app-upnp-media-player  *ngFor   = "let mp of getMediaPlayers()"
+                        [data]   = "mp"
+                        [update] = "mp.update"
 ></app-upnp-media-player>
-<app-hue-lamp          *ngFor   = "let hueLamp of getHueLamps()"
-                       [data]   = "hueLamp"
-                       [update] = "hueLamp.update"
+<app-hue-lamp           *ngFor   = "let hueLamp of getHueLamps()"
+                        [data]   = "hueLamp"
+                        [update] = "hueLamp.update"
 ></app-hue-lamp>
+
+<app-metawear           *ngFor   = "let metawear of getMetawears()"
+                        [data]   = "metawear"
+                        [update] = "metawear.update"
+></app-metawear>
+
+<h3>Raw bricks list</h3>
 <ul>
   <li *ngFor="let brick of getBricks()">
     <code>{{brick.name}} : {{brick.types | json}} ({{brick.id}})<br/>
