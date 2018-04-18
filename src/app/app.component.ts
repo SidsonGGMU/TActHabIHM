@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TacthabService} from './tacthab.service';
 import 'hammerjs';
 import {Observable} from 'rxjs/Observable';
@@ -8,6 +8,11 @@ import {MatDialog, MatIconRegistry} from '@angular/material';
 import {DialogConnectComponent} from './dialog-connect/dialog-connect.component';
 import {BrickJSON, BrickUPnPJSON} from './data/Brick';
 import {DialogBridgeBleComponent} from './dialog-bridge-blecomponent/dialog-bridge-ble.component';
+import {appRoutes} from './routes';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/filter';
 
 const tacthab2ConfigLanguage = "tacthab2ConfigLanguage";
 
@@ -17,14 +22,21 @@ const tacthab2ConfigLanguage = "tacthab2ConfigLanguage";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'TActHab 2';
+  private title = 'TActHab 2';
   private T;
   private obsUserName: Observable<string>;
 
   constructor( private tservice: TacthabService,
                private translate: TranslateService,
                private iconReg: MatIconRegistry,
-               private dialog: MatDialog) {
+               private dialog: MatDialog,
+               private route: ActivatedRoute,
+               private router: Router
+             ) {
+    router.events
+      .filter(e => e instanceof NavigationEnd)
+      .forEach(e => this.title = route.root.firstChild.snapshot.routeConfig.path );
+
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang('en');
 
@@ -107,35 +119,26 @@ export class AppComponent {
     return this.translate.get("logged", { gender: this.getUserGender(), count: 1, logged: this.isConnected() });
   }
 
-  getBricks(): BrickJSON[] {
-    return this.tservice.getBricks();
-  }
-
-  getMediaPlayers(): BrickUPnPJSON[] {
-    const bricksUPnP = this.getBricksTyped("BrickUPnP") as BrickUPnPJSON[];
-    return bricksUPnP.filter( B => B.types.indexOf("MediaRenderer") >= 0 );
-  }
-
-  getHueLamps(): BrickJSON[] {
-    return this.getBricksTyped("HueLamp");
-  }
-
-  getMetawears(): BrickJSON[] {
-    return this.getBricksTyped("METAWEAR");
-  }
-
-  getBricksTyped(type: string): BrickJSON[] {
-    return this.getBricks().filter(
-      B => B.types.indexOf(type) >= 0
-    );
-  }
-
   createBLEBridge() {
     const dialogRef = this.dialog.open(DialogBridgeBleComponent, {
       width: '400px',
       height: '250px',
       data: {}
     });
+  }
+
+  getPages(): string[] {
+    return appRoutes
+      .filter( R => R.path !== '' )
+      .map( R => R.path );
+      // .map( str => this.translate.get(str) );
+  }
+
+  getPageLabel(): Observable<string> {
+    // console.log("this.route.root.path:", this.route.root);
+    // return this.translate.get( this.route.root.path );
+    // console.log( this.route.pathFromRoot[0] );
+    return this.translate.get( this.title );
   }
 
 }

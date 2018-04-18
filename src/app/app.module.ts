@@ -23,6 +23,10 @@ import { HueBridgeComponent } from './hue-bridge/hue-bridge.component';
 import { HueLampComponent } from './hue-lamp/hue-lamp.component';
 import { MetawearComponent } from './metawear/metawear.component';
 import { DialogBridgeBleComponent } from './dialog-bridge-blecomponent/dialog-bridge-ble.component';
+import {RouterModule} from '@angular/router';
+import { DevicesComponent } from './devices/devices.component';
+import { CcblRootComponent } from './ccbl-root/ccbl-root.component';
+import {appRoutes} from './routes';
 
 @NgModule({
   declarations: [
@@ -34,13 +38,20 @@ import { DialogBridgeBleComponent } from './dialog-bridge-blecomponent/dialog-br
     HueBridgeComponent,
     HueLampComponent,
     MetawearComponent,
-    DialogBridgeBleComponent
+    DialogBridgeBleComponent,
+    DevicesComponent,
+    CcblRootComponent
   ],
   entryComponents: [
-    DialogConnectComponent, DialogBridgeBleComponent, UpnpMediaExplorerComponent
+    DialogConnectComponent, DialogBridgeBleComponent, UpnpMediaExplorerComponent,
+    DevicesComponent, CcblRootComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     TranslateModule.forRoot({
       compiler: {
         provide: TranslateCompiler,

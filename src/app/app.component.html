@@ -1,7 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar color="primary">
-  <h1 translate [translateParams]="{ title: 'TActHab' }" >
+  <!-- <h1 translate [translateParams]="{ title: 'TActHab' }" >
     welcome
+  </h1> -->
+  <h1 [matMenuTriggerFor]="menuGoto">
+      {{getPageLabel() | async}}
   </h1>
 
   <div class="fill"></div>
@@ -38,6 +41,14 @@
           {{getBLEBridgeLabel() | async}}
         </span>
       </button>
+
+      <button mat-menu-item [matMenuTriggerFor]="menuGoto">
+        <mat-icon></mat-icon>
+        <span>
+          Go to page...
+        </span>
+      </button>
+
       <button mat-menu-item [disabled]="!isConnected()" (click)="logout()">
         <mat-icon>eject</mat-icon>
         <span translate>
@@ -53,27 +64,15 @@
       </label>
     </button>
   </mat-menu>
+
+  <mat-menu #menuGoto="matMenu">
+    <button mat-menu-item *ngFor="let page of getPages()" [routerLink]="page" routerLinkActive="active">
+      <label translate>{{page}}</label>
+    </button>
+  </mat-menu>
+
 </mat-toolbar>
 
-<app-upnp-media-player  *ngFor   = "let mp of getMediaPlayers()"
-                        [data]   = "mp"
-                        [update] = "mp.update"
-></app-upnp-media-player>
-<app-hue-lamp           *ngFor   = "let hueLamp of getHueLamps()"
-                        [data]   = "hueLamp"
-                        [update] = "hueLamp.update"
-></app-hue-lamp>
 
-<app-metawear           *ngFor   = "let metawear of getMetawears()"
-                        [data]   = "metawear"
-                        [update] = "metawear.update"
-></app-metawear>
 
-<h3>Raw bricks list</h3>
-<ul>
-  <li *ngFor="let brick of getBricks()">
-    <code>{{brick.name}} : {{brick.types | json}} ({{brick.id}})<br/>
-          <!-- {{brick | json}} -->
-    </code>
-  </li>
-</ul>
+<router-outlet></router-outlet>

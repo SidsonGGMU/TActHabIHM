@@ -34,5 +34,14 @@ export const translationsTitle = {
   BLEBridge: {
     en: "Bluetooth bridge{count, plural, =0{} one{} other{s}}",
     fr: "Pont{count, plural, =0{} one{} other{s}} Bluetooth"
+  },
+  devices: {
+    en: "Devices and services",
+    fr: "Appareils et services"
+  },
+  "ccbl-root": {
+    en: "CCBL Environments",
+    fr: "Environnements CCBL"
   }
+
 };

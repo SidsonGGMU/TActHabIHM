@@ -2,11 +2,18 @@ import {DeviceJSON} from "alx-upnp";
 
 export type BRICK_ID = string;
 
+export interface BrickEmitterJSON {
+  name: string;
+  type: string;
+}
+
 export interface BrickJSON {
   id: BRICK_ID;
   name: string;
   types: string[];
   update: number;
+  emitters: BrickEmitterJSON[];
+  channels: BrickEmitterJSON[];
 }
 
 export interface BrickUPnPJSON extends BrickJSON {
