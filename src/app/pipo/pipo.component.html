@@ -1,0 +1,19 @@
+<h4>{{data.name}}</h4>
+
+<form>
+  <label>
+    Channel 1:
+    <input type             = "number"
+           name             = "channel1"
+           [ngModel]        = "data.channel1"
+           (ngModelChange)  = "setChannel1($event)" />
+  </label>
+
+  <label>
+    Emitter 1:
+    <input type             = "number"
+           name             = "emitter1"
+           [ngModel]        = "data.emitter1"
+           (ngModelChange)  = "setEmitter1($event)" />
+  </label>
+</form>

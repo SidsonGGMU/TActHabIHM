@@ -1,0 +1,27 @@
+<section>
+  <h4>
+    {{getName()}} {{getConnected() ? "connected" : "disconnected"}}
+    <button *ngIf=" getConnected()" (click)="disconnect()">Disconnect</button>
+    <button *ngIf="!getConnected()" (click)="   connect()">   Connect</button>
+  </h4>
+  <section>
+    <ul>
+      <li>Button is {{getButtonPressed() ? "" : "NOT"}} pressed.</li>
+      <li>
+        <button (click)="startNotifying('accelerometer')">Notify  </button>
+        <button (click)=" stopNotifying('accelerometer')">Unnotify</button>
+        Accelerometer: {{getAccelerometer() | json}}
+      </li>
+      <li>
+        <button (click)="startNotifying('gyroscope')">Notify  </button>
+        <button (click)=" stopNotifying('gyroscope')">Unnotify</button>
+        Gyroscope: {{getGyroscope() | json}}
+      </li>
+    </ul>
+  </section>
+  <!--
+  <code>
+    {{getMetawear() | json}}
+  </code>
+  -->
+</section>

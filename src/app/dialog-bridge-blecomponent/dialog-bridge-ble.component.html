@@ -1,0 +1,36 @@
+<h1 >
+  {{getBLEBridgeLabel()}}
+</h1>
+<ul>
+  <li *ngFor="let bridge of getExistingBridges()">
+    {{bridge.name}}
+  </li>
+</ul>
+
+<label>CREATE</label>
+<form>
+  <mat-form-field>
+    <input #IP
+           matInput
+           name="srvAd"
+           placeholder="IP"
+           >
+  </mat-form-field>
+  <mat-form-field>
+    <input #PORT
+           matInput
+           name="srvAd"
+           placeholder="PORT"
+    >
+  </mat-form-field>
+
+  <footer>
+    <button mat-raised-button (click)="close()">
+      CANCEL
+    </button>
+
+    <button mat-raised-button (click)="createBridgeBLE( IP.value, PORT.value )">
+      OK
+    </button>
+  </footer>
+</form>

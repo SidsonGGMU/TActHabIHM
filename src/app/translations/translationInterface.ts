@@ -42,6 +42,10 @@ export const translationsTitle = {
   "ccbl-root": {
     en: "CCBL Environments",
     fr: "Environnements CCBL"
+  },
+  newCcblRoot: {
+    en: "Add new CCBL environment",
+    fr: "Ajouter un nouvel environement CCBL"
   }
 
 };

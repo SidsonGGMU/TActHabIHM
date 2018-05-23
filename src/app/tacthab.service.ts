@@ -49,6 +49,10 @@ export class TacthabService {
     return this.bricks;
   }
 
+  getBricksTyped(type: string): BrickJSON[] {
+    return this.bricks.filter( b => b.types.indexOf(type) >= 0 );
+  }
+
   connect(url?: string) {
     this.url = url = url || this.url;
     if (this.sio) {
@@ -161,14 +165,22 @@ export class TacthabService {
   }
 
   unserializeBrickEvent(brickJSON: BrickJSON, event: BrickEvent) {
-    // console.log("Unserialize Brick event", event, "for brick", brickJSON);
+    console.log("Unserialize Brick event", event, "for brick", brickJSON);
     if (typeof brickJSON[event.attribute] === "object") {
       const L = event.data as [string, any][];
-      L.forEach( ([k, v]) => brickJSON[event.attribute][k] = v );
-      brickJSON.update++;
+      if (L.forEach !== undefined) {
+        L.forEach(([k, v]) => brickJSON[event.attribute][k] = v);
+      } else {
+        const obj: {[key: string]: any} = event.data as {[key: string]: any};
+        for (const i in obj) {
+          brickJSON[event.attribute][i] = obj[i];
+        }
+      }
     } else {
+      // console.log(event.attribute, "<=", event.data);
       brickJSON[event.attribute] = event.data;
     }
+    brickJSON.update++;
   }
 
   unserializeBrickUPnPEvent(brickUPnP: BrickUPnPJSON, event: BrickUPnPEvent) {

@@ -1,0 +1,34 @@
+<app-upnp-media-player  *ngFor   = "let mp of getMediaPlayers()"
+                        [data]   = "mp"
+                        [update] = "mp.update"
+></app-upnp-media-player>
+<app-hue-lamp           *ngFor   = "let hueLamp of getHueLamps()"
+                        [data]   = "hueLamp"
+                        [update] = "hueLamp.update"
+></app-hue-lamp>
+
+<app-metawear           *ngFor   = "let metawear of getMetawears()"
+                        [data]   = "metawear"
+                        [update] = "metawear.update"
+></app-metawear>
+
+<app-pipo               *ngFor    = "let pipo of getBricksTyped('Pipo')"
+                        [data]   = "pipo"
+                        [update] = "pipo.update"
+></app-pipo>
+
+<h3>Raw bricks list</h3>
+<ul>
+  <li *ngFor="let brick of getBricks()">
+    <code>{{brick.name}} : {{brick.types | json}} ({{brick.id}})<br/>
+      <ul>
+        <li *ngFor="let emitter of brick.emitters">
+          Emitter {{emitter.name}} can send {{emitter.type}}
+        </li>
+        <li *ngFor="let channel of brick.channels">
+          Channel {{channel.name}} can send {{channel.type}}
+        </li>
+      </ul>
+    </code>
+  </li>
+</ul>

@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+section.explorer {
+  flex: 1 1;
+  display: block;
+  overflow-y: auto;
+  font-family: Roboto;
+  font-size: medium;
+
+  li.selected {
+    background: aqua;
+  }
+}
+
+section.buttons {
+  flex: 0 1 auto;
+  display: flex;
+  flex-flow: row-reverse;
+  border-top: solid black 1px;
+
+  button {
+    margin: 5px;
+  }
+}
+
+form.ccblNameForm mat-form-field {
+  display: block;
+}

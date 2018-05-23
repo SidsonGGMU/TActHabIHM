@@ -16,7 +16,7 @@ import {TranslateCompiler, TranslateModule} from '@ngx-translate/core';
 import {TranslateMessageFormatCompiler} from 'ngx-translate-messageformat-compiler';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DialogConnectComponent } from './dialog-connect/dialog-connect.component';
 import {HttpClientModule} from '@angular/common/http';
 import { HueBridgeComponent } from './hue-bridge/hue-bridge.component';
@@ -27,6 +27,8 @@ import {RouterModule} from '@angular/router';
 import { DevicesComponent } from './devices/devices.component';
 import { CcblRootComponent } from './ccbl-root/ccbl-root.component';
 import {appRoutes} from './routes';
+import { PipoComponent } from './pipo/pipo.component';
+import { DialogAppendCcblFromBrickComponent } from './dialog-append-ccbl-from-brick/dialog-append-ccbl-from-brick.component';
 
 @NgModule({
   declarations: [
@@ -40,14 +42,17 @@ import {appRoutes} from './routes';
     MetawearComponent,
     DialogBridgeBleComponent,
     DevicesComponent,
-    CcblRootComponent
+    CcblRootComponent,
+    PipoComponent,
+    DialogAppendCcblFromBrickComponent
   ],
   entryComponents: [
     DialogConnectComponent, DialogBridgeBleComponent, UpnpMediaExplorerComponent,
+    DialogAppendCcblFromBrickComponent,
     DevicesComponent, CcblRootComponent
   ],
   imports: [
-    BrowserModule, FormsModule, HttpClientModule,
+    BrowserModule, FormsModule, ReactiveFormsModule, HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

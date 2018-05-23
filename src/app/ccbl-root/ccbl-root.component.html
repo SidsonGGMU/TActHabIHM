@@ -1,0 +1,54 @@
+<h3>Environments</h3>
+<section *ngFor = "let root of getCcblRoots()">
+  <h4>CCBL root {{root.name}}</h4>
+  <code>{{root | json}}</code>
+  <h5>
+    Channels
+    <button (click)="addChannel(root)">Add</button>
+  </h5>
+  <ul>
+    <li *ngFor = "let channel of getChannels(root)">
+      {{channel.ccbl.name}} references {{channel.brick.channelName}} of {{channel.brick.id}}.
+      It is {{channel.ccbl.description.available ? "" : "not"}} available.
+      It's value is {{channel.ccbl.value}}.
+      <!-- {{channel | json}} -->
+    </li>
+  </ul>
+  <h5>
+    Emitters
+    <button (click)="addEmitter(root)">Add</button>
+  </h5>
+  <ul>
+    <li *ngFor = "let emitter of getEmitters(root)">
+      {{emitter.ccbl.name}} references {{emitter.brick.emitterName}} of {{emitter.brick.id}}.
+      It is {{emitter.ccbl.description.available ? "" : "not"}} available.
+      It's value is {{emitter.ccbl.value}}.
+      <!-- {{emitter | json}} -->
+    </li>
+  </ul>
+  <h5>Events</h5>
+  <ul>
+    <li *ngFor = "let eventer of getEventers(root)">
+      {{eventer.ccbl.name}} references {{eventer.brick.eventerName}} of {{eventer.brick.id}}.
+      It is {{eventer.ccbl.description.available ? "" : "not"}} available.
+      <!-- {{emitter | json}} -->
+    </li>
+  </ul>
+</section>
+
+<hr/>
+
+<button mat-raised-button (click)="createCcblRoot()">
+  <span translate>newCcblRoot</span>
+</button>
+
+<pre>
+  Interface for CcblRoot.
+  Create new environments.
+  For each environment, one should be able to add channels, emitters and events related to bricks.
+  Should display wether this elements are available or not.
+  Should display their value.
+
+  Note about Metawear stuff: Should be possible to activate / desactivate sensors sch as accelerometer
+    => Metawear expose channels to turn sensors on and off ? Yeahhhh
+</pre>

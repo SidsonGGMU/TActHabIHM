@@ -1,0 +1,59 @@
+<section class="explorer">
+  <h1>Add a CCBL {{data.ccblType}}</h1>
+
+  <form class="ccblNameForm">
+    <mat-form-field>
+      <input matInput
+             name         = "ccblName"
+             placeholder  = "Name inside CCBL"
+             [(ngModel)]  = "ccblName"
+             [formControl]= "ccblNameFormControl"
+             [required]   = "true"
+      />
+      <!--
+      <mat-hint>The name should contains only alphanumerical symbols plus "_". No space, no "-".</mat-hint>
+      -->
+      <mat-error *ngIf="!isCcblNameValid()">
+        Please enter a valid ccbl name (alphanumeric, no space, no "-"
+      </mat-error>
+      <mat-error *ngIf="nameAlreadyExist()">
+        This name is already used.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf = "data.ccblType === 'channel'">
+      <input matInput
+             name         = "ccblInitialValue"
+             placeholder  = "Initial value"
+             [(ngModel)]  = "ccblInitialValue"
+             [required]   = "true"
+      />
+    </mat-form-field>
+  </form>
+
+  <br/>
+
+  <ul>
+    <li *ngFor = "let brick of getBricks()">
+      {{brick.name}}
+      <ul>
+        <li *ngFor            = "let element of getElements(brick)"
+            (click)           = "select(brick, element)"
+            (dblclick)        = "ok()"
+            [class.selected]  = "isSelected(element)"
+        >
+          {{element.name}}: {{element.type}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+
+<section class="buttons">
+  <button mat-raised-button color = "primary"
+          (click) = "ok()"
+          [disabled] = "!somethingSelected() || !isCcblNameValid()"
+          >{{getOKLabel()     | async}}</button>
+  <button mat-raised-button color = "warn"
+          (click) = "cancel()">{{getCancelLabel() | async}}</button>
+</section>
