@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BrickUPnPJSON, CALL, CALL_RESULT, UPnP_item} from '../data/Brick';
-import {TacthabService} from '../tacthab.service';
+import {MediaRendererJSON, TacthabService} from '../tacthab.service';
 import {ServiceJSON} from 'alx-upnp';
 import {StateVariableJSON} from 'alx-upnp/build/Service';
 import {MatDialog, MatSliderChange} from '@angular/material';
@@ -12,7 +12,7 @@ import {UPnP_MEDIA_PATH, UpnpMediaExplorerComponent} from '../upnp-media-explore
   styleUrls: ['./upnp-media-player.component.scss']
 })
 export class UpnpMediaPlayerComponent implements OnInit {
-  @Input("data") mp: BrickUPnPJSON;
+  @Input("data") mp: MediaRendererJSON;
   @Input() update: number;
 
   constructor(private tservice: TacthabService, private dialog: MatDialog) { }
@@ -62,7 +62,7 @@ export class UpnpMediaPlayerComponent implements OnInit {
     dialogRef.afterClosed().subscribe( (res: UPnP_MEDIA_PATH) => {
       console.log("afterClosed =>", res);
       if (res && res.item) {
-        this.loadMedia(res.MS.id, res.item.id).then(
+        this.loadMedia(res.MS.id, res.containers[res.containers.length-1].id, res.item.id).then(
           () => this.play(),
           err => console.error(err)
         );
@@ -70,11 +70,11 @@ export class UpnpMediaPlayerComponent implements OnInit {
     });
   }
 
-  loadMedia(mediaServerId: string, itemId: string): Promise<CALL_RESULT> {
+  loadMedia(mediaServerId: string, parentId: string, itemId: string): Promise<CALL_RESULT> {
     return this.call({
       brickId: this.mp.id,
       method: "loadMedia",
-      arguments: [mediaServerId, itemId]
+      arguments: [mediaServerId, parentId, itemId]
     });
   }
 

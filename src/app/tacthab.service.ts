@@ -6,7 +6,7 @@ import {PassportUser} from './data/passportUser';
 import 'rxjs/add/operator/map';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
-import {BrickJSON, BrickUPnPJSON, CALL_RESULT} from './data/Brick';
+import {BrickJSON, BrickUPnPJSON, CALL_RESULT, UPnP_item} from './data/Brick';
 import {CALL} from "./data/Brick";
 import {ServiceJSON} from 'alx-upnp';
 import {StateVariableJSON} from 'alx-upnp/build/Service';
@@ -191,6 +191,9 @@ export class TacthabService {
     if (stateVar) {
       stateVar.value = event.data.value;
       brickUPnP.update++;
+    } else {
+      brickUPnP[serviceId] = event.data;
+      brickUPnP.update++;
     }
   }
 
@@ -231,4 +234,8 @@ type JsonObject = {[key: string]: any};
 interface BrickBLEEvent extends BrickEvent {
   attribute: string; // "updateIsConnected" | "updateState";
   data: boolean | JsonObject;
+}
+
+export interface MediaRendererJSON extends BrickUPnPJSON {
+  upnpItem: UPnP_item;
 }
