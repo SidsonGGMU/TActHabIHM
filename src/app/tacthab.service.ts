@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-// import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {connect} from "socket.io-client";
 import {PassportUser} from './data/passportUser';
-import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {BrickJSON, BrickUPnPJSON, CALL_RESULT, UPnP_item} from './data/Brick';
 import {CALL} from "./data/Brick";
 import {ServiceJSON} from 'alx-upnp';
 import {StateVariableJSON} from 'alx-upnp/build/Service';
 import {BLEJSON} from './data/BLE';
+import {map} from "rxjs/operators";
 
 @Injectable()
 export class TacthabService {
   private subjUser = new BehaviorSubject<PassportUser>(undefined );
   private obsUser  = this.subjUser.asObservable();
-  private obsIsConnected = this.obsUser.map( u => !!u );
+  private obsIsConnected = this.obsUser.pipe(map( u => !!u ));
   private sio: SocketIOClient.Socket;
   private url = `${location.protocol}//${location.host}`;
   private connected = false;

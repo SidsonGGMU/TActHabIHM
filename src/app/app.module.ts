@@ -25,7 +25,7 @@ import { MetawearComponent } from './metawear/metawear.component';
 import { DialogBridgeBleComponent } from './dialog-bridge-blecomponent/dialog-bridge-ble.component';
 import {RouterModule} from '@angular/router';
 import { DevicesComponent } from './devices/devices.component';
-import { CcblRootComponent } from './ccbl-root/ccbl-root.component';
+import {CcblRootComponent} from './ccbl-root/ccbl-root.component';
 import {appRoutes} from './routes';
 import { PipoComponent } from './pipo/pipo.component';
 import { DialogAppendCcblFromBrickComponent } from './dialog-append-ccbl-from-brick/dialog-append-ccbl-from-brick.component';

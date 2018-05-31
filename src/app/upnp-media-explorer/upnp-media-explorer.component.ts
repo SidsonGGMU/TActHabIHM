@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TranslateService} from '@ngx-translate/core';
 import {TacthabService} from '../tacthab.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {BrickUPnPJSON, BrowsDirectChildrenResult, BrowseFlag, UPnP_container, UPnP_item} from '../data/Brick';
 
 @Component({

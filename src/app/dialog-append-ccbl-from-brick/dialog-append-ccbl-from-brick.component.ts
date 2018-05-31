@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {TacthabService} from '../tacthab.service';
 import {TranslateService} from '@ngx-translate/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {CcblRootComponent} from '../ccbl-root/ccbl-root.component';
 import {BrickJSON} from '../data/Brick';
 import {FormControl, Validators} from '@angular/forms';

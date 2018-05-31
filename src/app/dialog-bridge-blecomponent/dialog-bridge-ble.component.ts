@@ -3,7 +3,7 @@ import {TacthabService} from '../tacthab.service';
 import {DialogConnectComponent} from '../dialog-connect/dialog-connect.component';
 import {TranslateService} from '@ngx-translate/core';
 import {MatDialogRef} from '@angular/material';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {BrickJSON} from '../data/Brick';
 
 @Component({

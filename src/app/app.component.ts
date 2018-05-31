@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {TacthabService} from './tacthab.service';
 import 'hammerjs';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {translationsTitle} from "./translations/translationInterface";
 import {MatDialog, MatIconRegistry} from '@angular/material';
@@ -10,9 +10,10 @@ import {BrickJSON, BrickUPnPJSON} from './data/Brick';
 import {DialogBridgeBleComponent} from './dialog-bridge-blecomponent/dialog-bridge-ble.component';
 import {appRoutes} from './routes';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {filter, map} from "rxjs/operators";
 
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/filter';
+
+
 
 const tacthab2ConfigLanguage = "tacthab2ConfigLanguage";
 
@@ -33,8 +34,8 @@ export class AppComponent {
                private route: ActivatedRoute,
                private router: Router
              ) {
-    router.events
-      .filter(e => e instanceof NavigationEnd)
+    router.events.pipe(
+      filter(e => e instanceof NavigationEnd))
       .forEach(e => this.title = route.root.firstChild.snapshot.routeConfig.path );
 
     translate.addLangs(['en', 'fr']);
@@ -59,7 +60,7 @@ export class AppComponent {
 
     iconReg.addSvgIcon("more_vert", "../assets/ic_more_vert_black_24px.svg");
 
-    this.obsUserName = this.tservice.getObsUser().map( u => u.name );
+    this.obsUserName = this.tservice.getObsUser().pipe(map( u => u.name ));
   }
 
   isConnected(): boolean {
