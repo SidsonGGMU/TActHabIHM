@@ -42,6 +42,13 @@
         </span>
       </button>
 
+      <button mat-menu-item (click)="createWeather()">
+        <mat-icon>ac_unit</mat-icon>
+        <span>
+          {{getWeatherLabel() | async}}
+        </span>
+      </button>
+      
       <button mat-menu-item [matMenuTriggerFor]="menuGoto">
         <mat-icon></mat-icon>
         <span>

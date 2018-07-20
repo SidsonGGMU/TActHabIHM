@@ -1,0 +1,28 @@
+<h1 >
+  {{getWeatherLabel()}}
+</h1>
+<ul>
+  <li *ngFor="let weather of getExistingWeather()">
+    {{weather.name}}
+  </li>
+</ul>
+
+<label>CREATE</label>
+<form>
+  <mat-form-field>
+    <input #CITY
+           matInput
+           name="srvAd"
+           placeholder="Enter a city"
+           >
+  </mat-form-field>
+  <footer>
+    <button mat-raised-button (click)="close()">
+      CANCEL
+    </button>
+
+    <button mat-raised-button (click)="createWeather(CITY.value)">
+      OK
+    </button>
+  </footer>
+</form>

@@ -11,6 +11,7 @@ import {DialogBridgeBleComponent} from './dialog-bridge-blecomponent/dialog-brid
 import {appRoutes} from './routes';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter, map} from "rxjs/operators";
+import { DialogWeatherComponent } from './dialog-weather/dialog-weather.component';
 
 
 
@@ -73,6 +74,12 @@ export class AppComponent {
     });
   }
 
+  getWeatherLabel(): Observable<string> {
+    return this.translate.get("BrickWeather", {
+      count: 2
+    });
+  }
+
   getLanguageFullName(lang: string): string {
     return this.T[lang] ? this.T[lang].lang : lang;
   }
@@ -122,6 +129,15 @@ export class AppComponent {
 
   createBLEBridge() {
     const dialogRef = this.dialog.open(DialogBridgeBleComponent, {
+      width: '400px',
+      height: '250px',
+      data: {}
+    });
+  }
+
+
+  createWeather() {
+    const dialogRef = this.dialog.open(DialogWeatherComponent, {
       width: '400px',
       height: '250px',
       data: {}

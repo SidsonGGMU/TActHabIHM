@@ -2,6 +2,12 @@
                         [data]   = "mp"
                         [update] = "mp.update"
 ></app-upnp-media-player>
+
+<app-weather            *ngFor   = "let weatherCity of getWeathers()"
+                        [data]   = "weatherCity"
+                        [update] = "weatherCity.update"
+></app-weather>
+
 <app-hue-lamp           *ngFor   = "let hueLamp of getHueLamps()"
                         [data]   = "hueLamp"
                         [update] = "hueLamp.update"

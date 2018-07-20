@@ -25,6 +25,10 @@ export class DevicesComponent implements OnInit {
     return bricksUPnP.filter( B => B.types.indexOf("MediaRenderer") >= 0 );
   }
 
+  getWeathers(): BrickJSON[] {
+    return this.getBricksTyped("BrickWeather");
+  }
+
   getHueLamps(): BrickJSON[] {
     return this.getBricksTyped("HueLamp");
   }

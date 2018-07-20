@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {connect} from "socket.io-client";
 import {PassportUser} from './data/passportUser';
 import {HttpClient} from '@angular/common/http';
-import {BrickJSON, BrickUPnPJSON, CALL_RESULT, UPnP_item} from './data/Brick';
+import {BrickJSON, BrickUPnPJSON, CALL_RESULT, UPnP_item, WeatherDescription} from './data/Brick';
 import {CALL} from "./data/Brick";
 import {ServiceJSON} from 'alx-upnp';
 import {StateVariableJSON} from 'alx-upnp/build/Service';
@@ -154,7 +154,7 @@ export class TacthabService {
             const brickUPnP = brick as BrickUPnPJSON;
             this.unserializeBrickUPnPEvent(brickUPnP, event);
             return;
-          case "Brick":
+          case "Brick" || "BrickWeather":
             this.unserializeBrickEvent(brick, event);
             return;
         }
@@ -179,7 +179,7 @@ export class TacthabService {
       brickJSON[event.attribute] = event.data;
     }
     brickJSON.update++;
-  }
+  } 
 
   unserializeBrickUPnPEvent(brickUPnP: BrickUPnPJSON, event: BrickUPnPEvent) {
     // console.log("Unserialize UPnP event", event, "for brick", brickUPnP);
@@ -236,4 +236,8 @@ interface BrickBLEEvent extends BrickEvent {
 
 export interface MediaRendererJSON extends BrickUPnPJSON {
   upnpItem: UPnP_item;
+}
+
+export interface WeatherJSON extends BrickJSON {
+  weatherDescription: WeatherDescription;
 }

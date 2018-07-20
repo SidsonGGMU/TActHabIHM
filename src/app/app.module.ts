@@ -10,7 +10,7 @@ import { UpnpMediaExplorerComponent } from './upnp-media-explorer/upnp-media-exp
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatIconModule, MatInputModule, MatMenuModule, MatSliderModule,
-  MatToolbarModule
+  MatToolbarModule, MatSelectModule
 } from '@angular/material';
 import {TranslateCompiler, TranslateModule} from '@ngx-translate/core';
 import {TranslateMessageFormatCompiler} from 'ngx-translate-messageformat-compiler';
@@ -29,6 +29,8 @@ import {CcblRootComponent} from './ccbl-root/ccbl-root.component';
 import {appRoutes} from './routes';
 import { PipoComponent } from './pipo/pipo.component';
 import { DialogAppendCcblFromBrickComponent } from './dialog-append-ccbl-from-brick/dialog-append-ccbl-from-brick.component';
+import { DialogWeatherComponent } from './dialog-weather/dialog-weather.component';
+import { WeatherComponent } from './weather/weather.component';
 
 @NgModule({
   declarations: [
@@ -44,10 +46,12 @@ import { DialogAppendCcblFromBrickComponent } from './dialog-append-ccbl-from-br
     DevicesComponent,
     CcblRootComponent,
     PipoComponent,
-    DialogAppendCcblFromBrickComponent
-  ],
+    DialogAppendCcblFromBrickComponent,
+    DialogWeatherComponent,
+    WeatherComponent,
+    ],
   entryComponents: [
-    DialogConnectComponent, DialogBridgeBleComponent, UpnpMediaExplorerComponent,
+    DialogWeatherComponent, DialogConnectComponent, DialogBridgeBleComponent, UpnpMediaExplorerComponent,
     DialogAppendCcblFromBrickComponent,
     DevicesComponent, CcblRootComponent
   ],
@@ -64,7 +68,7 @@ import { DialogAppendCcblFromBrickComponent } from './dialog-append-ccbl-from-br
       }
     }),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    BrowserAnimationsModule, MatToolbarModule, MatMenuModule, MatIconModule, MatFormFieldModule, MatInputModule,
+    BrowserAnimationsModule, MatToolbarModule, MatMenuModule, MatIconModule, MatFormFieldModule, MatSelectModule, MatInputModule,
     MatSliderModule,
     MatDialogModule, MatCardModule,
     MatButtonModule
